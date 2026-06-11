@@ -4,13 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href=css\style.css>
+    <script src="js/script.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>SymbioAudit</title>
 
 </head>
+
 <body>
-    <section id="home" class="section-conteudo">
+<header>
+<div class="container">
+<nav>
+<div class="logo">SymbioAudit</div>
+<a href="#" class="btn">Solicitar Demonstração</a>
+</nav>
+</div>
+</header>
+
+    <section id="home" class="section-conteudo ativa">
     <div class="cenario-problema">
         <h1>
         O mercado financeiro global analisa milhares de indústrias diariamente. No entanto, a verdadeira transparência corporativa hoje está oculta em:
@@ -80,23 +91,21 @@
         <h2>📊 Metodologia</h2>
         <p>A estrutura da SymbioAudit foi desenvolvida para transformar dados operacionais em indicadores comparáveis, auditáveis e orientados à tomada de decisão institucional. Cada etapa do processo segue critérios rígidos de rastreabilidade, ponderação estratégica e simulação dinâmica de impacto.</p>
         <div  class = "botoes_metodologia">
-             <button class="botao ativa" id="botao-1"><p><strong>01. Coleta</strong></button>
-             <button class ="botao" id="botao-2"><p><strong>02.Ponderação ESG</strong></button>
-              <button class = "botao" id="botao-3"><p><strong>03. Simulação de Impacto e Volatilidade</strong></button>
-                <button class="botao"><p><strong>04. Rastreabilidade</strong></button>
+             <button class="botao ativa" id="botao-1" onclick="mudarEtapa(1,this)"><strong>01. Coleta</strong></button>
+             <button class ="botao" id="botao-2" onclick="mudarEtapa(2,this)"><strong>02.Ponderação ESG</strong></button>
+              <button class = "botao" id="botao-3" onclick="mudarEtapa(3,this)"><strong>03. Simulação de Impacto</strong></button>
+                <button class="botao" id="botao-4" onclick="mudarEtapa(4,this)"><strong>04. Rastreabilidade</strong></button>
             </div>
             <div class="conteudo-painel">
-                    <div class="painel-etapa" id="etapa-1">Os dados utilizados pela plataforma são consolidados automaticamente a partir de documentos corporativos, indicadores públicos, registros regulatórios (como CVM) e métricas operacionais auditáveis. Todas as informações passam por processos de padronização estrutural para eliminar ruídos e permitir comparabilidade imediata entre indústrias.
+                    <div class="painel-etapa ativa" id="etapa-1">Os dados utilizados pela plataforma são consolidados automaticamente a partir de documentos corporativos, indicadores públicos, registros regulatórios (como CVM) e métricas operacionais auditáveis. Todas as informações passam por processos de padronização estrutural para eliminar ruídos e permitir comparabilidade imediata entre indústrias.
                     </p></div>
 
                     <div class="painel-etapa" id="etapa-2"> Indicadores processados são classificados em três pilares estratégicos com pesos definidos pelo potencial de impacto financeiro no longo prazo:</p>
-                        <strong><p>•	Ambiental (Environmental)— Peso: 40% <br>
+                        <strong><p>Ambiental (Environmental)— Peso: 40% <br>
                         Governança (Governance) — Peso: 35%<br>
                         Social (Social) — Peso: 25%
-                         </p></strong>
-                        <p><strong>Equação de Risco:  ESG Score = (0.40 * E) + (0.35 * G) + (0.25 * S)</strong>
-                        </p></div>
-
+                         <p>Equação de Risco:  ESG Score = (0.40 * E) + (0.35 * G) + (0.25 * S)</p>
+                         </div>
                          <div class="painel-etapa" id="etapa-3">A plataforma executa modelos matemáticos capazes de medir a exposição a riscos operacionais críticos, oscilações regulatórias repentinas e potenciais passivos financeiros antes que eles se concretizem. As simulações permitem ao usuário alterar variáveis de estresse e visualizar a mudança do risco em tempo real. 
                          </p></div>
 
@@ -105,7 +114,7 @@
                      </div>
 </section>
 
-    <section id="fale-conosco" class="section-conteudo ativa">
+    <section id="fale-conosco" class="section-conteudo">
       <span class="subtitulo_institucional">Relações com investidores e Parceiros</span>
         <h2>Contato Institucional</h2>
     <div class="faixa-contato">
@@ -145,19 +154,26 @@
 
   </form>
     </section>
-
-    <aside class="sidebar">
-        <div class="sidebar-brand">
-            <h3>SymbioAudit</h3>
-        </div>
-        <nav class="sidebar-menu">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#quem-somos">Quem Somos</a></li>
-             <li><a href="#seguranca">Segurança e Suporte</a></li>
-             <li><a href="#metodologia">Metodologia</a></li>
-             <li><a href="#contato">Fale Conosco</a></li>
-        </nav>
-        
-    </aside>
+    <footer class="menu-rodape">
+    <nav class="rodape-links">
+        <a href="#home" class="link-item">
+            <span class="texto">Home</span>
+        </a>
+        <a href="#quem-somos" class="link-item">
+            <span class="texto">Quem Somos</span>
+        </a>
+        <a href="#seguranca" class="link-item">
+            <span class="texto">Segurança</span>
+        </a>
+        <a href="#metodologia" class="link-item">
+            <span class="texto">Metodologia</span>
+        </a>
+        <a href="#fale-conosco" class="link-item">
+            <span class="texto">Contato</span>
+        </a>
+    </nav>
+    <nav class="rodape">© 2026 SymbioAudit • Inteligência ESG para Proteção de Capital
+    <p>By Graciele Braz • Liga Steam | João Monlevade</p></nav>
+</footer>
 </body>
 </html>

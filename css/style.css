@@ -2,17 +2,141 @@
     font-family:'inter',sans-serif;
 }
 
-.sidebar{
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 200px;
-    height: 30vh;
-    background-color:rgb(204, 232, 241);
-    display:none;
+/* --- CONFIGURAÇÃO DA TELA (TRAVA GERAL) --- */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden; /* Proíbe o navegador de rolar para baixo */
+    background-color: #fdfeff; /* O azul profundo do seu site */
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+header{
+position:fixed;top:0;width:100%;z-index:1000;
+background:rgba(255,255,255,.95);
+backdrop-filter:blur(12px);
+border-bottom:1px solid rgba(0,0,0,.05);
+
+}
+:root{
+--azul:#07263B;
+--verde:#36B37E;
+--cinza:#F4F7FA;
+--texto:#5B6470;
+--escuro:#0F172A;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;color:var(--escuro);overflow-x:hidden;background:#fff}
+.container{width:90%;max-width:1250px;margin:auto}
+
+.btn{
+display:inline-block;
+padding:16px 30px;
+border-radius:14px;
+background:linear-gradient(135deg,var(--azul),var(--verde));
+color:rgb(254, 251, 251);
+text-decoration:none;
+font-weight:700;
+}
+
+nav{height:80px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.7rem;font-weight:800;color:var(--azul)}
+
+/* --- ADAPTAÇÃO AUTOMÁTICA DAS SEÇÕES --- */
+.section-conteudo {
+    display: none; /* Esconde todas por padrão */
+    width: 100%;
+    height: calc(100vh - 120px); /* Ocupa a tela inteira descontando o rodapé */
+    box-sizing: border-box;
+    padding: 40px 20px;
+    overflow-y: auto; /* Se o conteúdo crescer demais, rola apenas dentro da seção */
+}
+
+
+/* Quando a seção ganha a classe ativa, ela liga o Flexbox e aparece */
+.section-conteudo.ativa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* Centraliza tudo na horizontal */
+    justify-content: flex-start; /* Começa o conteúdo do topo */
+}
+
+.menu-rodape {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    /* 1. Usando o tom super escuro do seu rodapé na base do degradê */
+    background: linear-gradient(to top, #061224 0%, rgba(6, 18, 36, 0.85) 100%);
+    
+    backdrop-filter: blur(10px);
+    background: linear-gradient(to bottom, #112d56 0%, #050e1c 100%) !important;
+    
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Deixei a linha um tiquinho mais clara para marcar o topo */
+    z-index: 1000;
+}
+/* Os links normais ganham um tom claro, mas sutil */
+.link-item {
+    display: flex;
+    flex-direction: column;   
+    align-items: center;      
+    text-decoration: none;    
+    color: #94a3b8;    
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 13px;      
+    transition: all 0.3s ease;
+    color: #cbd5e1;
+    /* Cores e Tipografia */
+    color: rgba(255, 255, 255, 0.65); /* Branco com transparência para ficar discreto */
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px; /* Espaçamento elegante entre as letras */
+    
+    /* Formato de Categoria (A mágica está aqui) */
+    padding: 8px 20px;
+    border-radius: 20px;   /* Transforma o fundo em uma pílula suave */
+    background: rgba(255, 255, 255, 0.02); /* Um fundo quase invisível padrão */
+    border: 1px solid rgba(255, 255, 255, 0.04); /* Bordinha extremamente sutil */
+    
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Movimento ultra suave */
+}
+
+/* 2. O efeito ao passar o mouse (Hover) - Visual de categoria selecionada */
+.link-item:hover {
+    color: #00f2fe;        /* Acende com o ciano do seu botão */
+    background: rgba(0, 242, 254, 0.06); /* Um brilho sutil de fundo com a cor do tema */
+    border-color: rgba(0, 242, 254, 0.3); /* A bordinha acende de leve */
+    transform: translateY(-2px); /* Um leve relevo */
+    box-shadow: 0 4px 12px rgba(0, 242, 254, 0.1); /* Um leve blur neon no fundo */
+}
+
+.rodape-links {
+    display: flex;            
+    justify-content: space-around; 
+    align-items: center; 
+    height: 100%;
+    max-width: 800px;
+    margin: 0 auto;  
+    list-style: none;
+}
+footer .rodape{
+background:#091627;
+color:white;
+text-align:center;
+padding-top: 10px;    /* Diminui o espaço acima do texto */
+    padding-bottom: 12px; /* Diminui o espaço abaixo do texto */
+    margin: 0;            /* Zera qualquer margem perdida que esteja empurrando para baixo */
+}
+
+.rodape p{
+    font-size:13px;
 }
 section{
-    /* display: none; */
+    display: none;
     padding: 30px;
 }
 section.ativa{
@@ -42,18 +166,18 @@ section.ativa{
 }
 
 #home li {
-    background: #111625; /* Um fundo de card sutil para cada item */
-    border-left: 4px solid #3b82f6; /* Uma barrinha azul na esquerda de cada linha (estilo painel) */
+    background: #111625; 
+    border-left: 4px solid #3b82f6;
     padding: 20px;
     margin-bottom: 15px;
     border-radius: 6px;
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #cbd5e1; /* Texto cinza claro elegante para não cansar a vista */
+    color: #cbd5e1;
     
     display: flex;
     align-items: center;
-    gap: 15px; /* Dá um espaço entre o emoji e o texto */
+    gap: 15px;
 }
 #quem_somos{
     max-width: 800px;
@@ -86,7 +210,7 @@ section.ativa{
     gap: 25px;
 }
 .card-essencia {
-    background: rgba(104, 119, 161, 0.4); /* Um fundo escuro bem sutil e semi-transparente */
+    background: rgba(104, 119, 161, 0.4);
     border: 1px solid #b4c7e6;
     padding: 25px;
     border-radius: 8px;
@@ -111,8 +235,8 @@ section.ativa{
     display: flex;
     gap: 10px;
     border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 0;
     margin-bottom: 20px;
+    margin-top:40px;
 }
 #metodologia .botao{
     background:none ;
@@ -120,13 +244,38 @@ section.ativa{
     cursor: pointer;
     font-size:15px ;
     color: #64748b;
-    padding: 12px 20px;
+    padding: 3px 10px;
+    
 
 }
 #metodologia .botao.ativa{
     color: #06921be4;
     border-bottom: 3px solid #06921be4;
-    margin: bottom -2px;
+     margin-bottom: -2px;
+}
+/* 1. Esconde todos os textos por padrão */
+.painel-etapa {
+    display: none;
+    margin-top: 30px; 
+    padding: 10px;
+    max-width: 900px;  
+    
+    font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+    font-size: 16px; 
+    line-height: 1.7; 
+    color: #ccc7c7; 
+     border: 1px solid #8b8f8f; 
+     background-color: #051b27;
+     border-radius: 12px; 
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); /* Sombra leve de cartão */
+}
+
+.painel-etapa.ativa {
+    display: block;
+}
+.calculo{
+    font-weight: bolder;
+    color: #0a8d31;
 }
 
 #metodologia{
@@ -163,9 +312,8 @@ color: #ffffff;
     padding:50px;
     text-align:center;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
-    transition: all 0.3s ease; /* Faz a mudança de cor ser suave */
+    transition: all 0.3s ease;
     cursor: pointer;
-    /* Centraliza o conteúdo verticalmente dentro do quadrado */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -175,7 +323,7 @@ color: #ffffff;
 }
 /* Efeito de passar o mouse nas caixinhas (Fundo verde escuro sutil) */
 .card-contato:hover {
-    background-color: #0d403c; /* Um tom verde bem suave e elegante */
+    background-color: #0d403c; 
     border-color: #065c55;
     transform: translateY(-4px); /* Dá um leve efeito de flutuar */
 }
@@ -188,7 +336,7 @@ color: #ffffff;
 .card-contato p {
     margin: 0;
     font-size: 14px;
-    opacity: 0.9; /* Deixa o texto do endereço levemente suave, destacando o título */
+    opacity: 0.9;
 }
 
 /* O círculo branco ao redor do ícone */
@@ -196,7 +344,7 @@ color: #ffffff;
     width: 80px;
     height: 80px;
     background-color:#fFFFFF;
-    border-radius: 50%; /* Faz ficar redondo */
+    border-radius: 50%;
     color: #0b2e2b;
     display:flex;
     margin: 0 auto 20px auto;
@@ -205,11 +353,12 @@ color: #ffffff;
     justify-content: center;
 
     display: block;
-    margin: 0 auto 20px auto;  /* Centraliza a bola no card */
-    text-align: center;        /* Alinha o ícone no centro (horizontal) */
-    line-height: 90px;         /* Força o ícone para o centro (vertical) - DEVE SER IGUAL À ALTURA */
-    font-size: 36px;           /* Tamanho do desenho */
-    box-sizing: border-box;    /* Garante que o tamanho seja exato */
+    margin: 0 auto 20px auto;  
+    
+    text-align: center; 
+    line-height: 90px;         
+    font-size: 36px; 
+    box-sizing: border-box;
     box-shadow: 0 0 0 15px #0c2c24, 0 0 0 16px #ffffff;
 }
 .subtitulo_institucional{
@@ -229,10 +378,10 @@ form{
 
 #fale-conosco form {
     display: flex;
-    flex-direction: column; /* Faz os campos ficarem empilhados um embaixo do outro */
-    gap: 20px; /* Cria um espaçamento padrão e igual entre cada linha do formulário */
-    max-width: 600px; /* Define uma largura limite para o formulário não ficar gigante na tela */
-    margin: 0 auto; /* Centraliza o formulário perfeitamente na tela */
+    flex-direction: column;
+    gap: 20px; 
+    max-width: 600px;
+    margin: 0 auto;
 }
 .proposito-form h3 {
     font-size: 20px;
@@ -242,7 +391,7 @@ form{
 }
 .proposito-form p {
     font-size: 20px;
-    color: #64748b; /* Cinza elegante que não briga com o título */
+    color: #64748b;
     line-height: 1.5;
 }
 input{
@@ -267,8 +416,8 @@ textarea{
     font-size: 14px;
     font-weight: 500;
     color: #0c2c24;
-    text-align: left; /* Garante que fiquem alinhados à esquerda */
-    margin-bottom: -5px; /* Deixa coladinho na caixa respectiva */
+    text-align: left;
+    margin-bottom: -5px;
 }
 button{
     height:40px;
