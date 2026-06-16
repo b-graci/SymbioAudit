@@ -1,179 +1,241 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=css\style.css>
-    <script src="js/script.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>SymbioAudit | Inteligência ESG para Proteção de Capital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <title>SymbioAudit</title>
-
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-<header>
-<div class="container">
-<nav>
-<div class="logo">SymbioAudit</div>
-<a href="#" class="btn">Solicitar Demonstração</a>
-</nav>
-</div>
+
+<header id="cabecalho">    
+    <div class="container">        
+        <nav>            
+            <div class="logo">SymbioAudit</div>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <div class="nav-links" id="menuLinks">                
+                <a href="#solucao">Solução</a>                
+                <a href="#quem-somos">Quem Somos</a>                
+                <a href="#metodologia">Metodologia</a>                
+                <a href="#plataforma">Plataforma</a>                
+                <a href="#fale-conosco">Contato</a>            
+            </div>
+            <a href="javascript:void(0)" class="btn" onclick="abrirFormulario()">Solicitar Demonstração</a>
+        </nav>    
+    </div>
 </header>
 
-    <section id="home" class="section-conteudo ativa">
-    <div class="cenario-problema">
-        <h1>
-        O mercado financeiro global analisa milhares de indústrias diariamente. No entanto, a verdadeira transparência corporativa hoje está oculta em:
-        </h1>
-            <ul>
-        <li>📄 60+ páginas de relatórios burocráticos e densos por organização.</li>
-        <li> 🌐 100% de dados socioambientais fragmentados e de difícil validação.</li>
-         <li>⏳ Dias ou até semanas de análise técnica desperdiçadas por equipes de investimento para tentar rastrear um único risco operacional.</li>
-        </div>
-        </ul>
-        </section>
-        <section id="quem-somos" class="section-conteudo">
-         <h2>Quem Somos</h2>
-          <p class="introducao">
-            A SymbioAudit nasceu para mudar essa dinâmica.
-            </p>
-            <p>
-            Somos uma plataforma de inteligência ESG e auditoria analítica desenvolvida para transformar essa complexidade documental em decisões estratégicas seguras.
-            Substituímos a assimetria de informações por uma interface centralizada, auditável e estritamente orientada à <strong> proteção de capital.</strong></p>
-          </p>
-            <p>
-            Nosso foco é antecipar volatilidades ambientais, jurídicas e de governança antes que elas se convertam em passivos financeiros. Oferecemos previsibilidade de longo prazo e blindagem de portfólio para investidores institucionais.
-          </p>
-          <blockquote class="frase-destaque">
-           "Mais do que consolidar relatórios, entregamos inteligência aplicada à tomada de decisão."</strong>
-          </blockquote>
-    <div class="container-pilares">
-        <h2>Nossos Pilares</h2>
-        <div class="card-essencia">
-            <h3>Centralização e Eficiência Analítica</h3>
-            <p>Eliminamos a burocracia dos relatórios extensos ao consolidar métricas ESG, indicadores operacionais e dados públicos em uma plataforma objetiva, auditável e orientada à tomada de decisão.</p>
-        </div>
-
-        <div class="card-essencia">
-            <h3>Mitigação de Risco Corporativo</h3>
-            <p>Identificamos inconsistências, riscos ambientais e fragilidades de governança antes que se tornem passivos financeiros. Mais segurança para tomar decisões no patrimônio a ser investido.</p>
-        </div>
-
-        <div class="card-essencia">
-            <h3>Inteligência Preditiva para Investimentos</h3>
-            <p>Aplicamos análise estratégica e simulações de impacto econômico para responder à principal pergunta do mercado:<strong>o capital investido está protegido por sustentabilidade, governança e responsabilidade operacional?</strong></p>
-        </div>
-       </section>
-
-        <section id="seguranca" class="section-conteudo">
-        <h2>🛡️ Segurança e Suporte</h2>
-            <p>A SymbioAudit adota processos rigorosos de conformidade e segurança para que você foque exclusivamente na tomada de decisão.</p>
-                <strong>Não fazemos previsões mágicas:</strong> consolidamos dados auditáveis com total transparência e suporte contínuo.</p>
+<section class="hero fade-up" id="home">        
+    <div class="container">            
+        <div class="hero-grid">
+            <div class="hero-content">            
+                <div class="badge">Inteligência ESG • Gestão de Riscos • Proteção de Capital</div>
+                <h1>O mercado financeiro global analisa milhares de indústrias diariamente.</h1>
+                <p>No entanto, a verdadeira transparência corporativa hoje está oculta em relatórios burocráticos e dados fragmentados de difícil validação.</p>
+                <div class="hero-buttons">            
+                    <a href="#fale-conosco" class="btn">Solicitar Demonstração</a>            
+                    <a href="#plataforma" class="btn-outline">Conhecer a Plataforma</a>        
+                </div>        
             </div>
-        <div class="caixa-seguranca">
-        <div class="card-seguranca">
-            <h3> 👥 Suporte Técnico Dedicado </h3>
-            <p>Central de atendimento especializada para sanar dúvidas operacionais e auxiliar na navegação dos painéis em tempo real. Respostas diretas, sem burocracia.</p>
-        </div>
-
-        <div class="card-seguranca">
-            <h3>🔒 Segurança e Sigilo de Dados </h3>
-            <p>Criptografia e governança rígida da informação para garantir total confidencialidade sobre as empresas consultadas e a estratégia do seu portfólio.</p>
-        </div> 
-        <div class="card-seguranca">
-            <h3>Confiabilidade</h3>
-            <p>Rastreabilidade total. Cada indicador exibido na plataforma aponta diretamente para o documento oficial de origem, permitindo dupla checagem sempre que necessário.</p>
-        </div> 
-        </section>
-
-        <section id="metodologia" class="section-conteudo">
-        <h2>📊 Metodologia</h2>
-        <p>A estrutura da SymbioAudit foi desenvolvida para transformar dados operacionais em indicadores comparáveis, auditáveis e orientados à tomada de decisão institucional. Cada etapa do processo segue critérios rígidos de rastreabilidade, ponderação estratégica e simulação dinâmica de impacto.</p>
-        <div  class = "botoes_metodologia">
-             <button class="botao ativa" id="botao-1" onclick="mudarEtapa(1,this)"><strong>01. Coleta</strong></button>
-             <button class ="botao" id="botao-2" onclick="mudarEtapa(2,this)"><strong>02.Ponderação ESG</strong></button>
-              <button class = "botao" id="botao-3" onclick="mudarEtapa(3,this)"><strong>03. Simulação de Impacto</strong></button>
-                <button class="botao" id="botao-4" onclick="mudarEtapa(4,this)"><strong>04. Rastreabilidade</strong></button>
+            <div class="dashboard fade-up">            
+                <h3>Painel SymbioAudit</h3>
+                <div class="metrics">
+                    <div class="metric"><strong>92</strong>ESG Score Geral</div>
+                    <div class="metric"><strong>98%</strong>Compliance</div>
+                </div>
+                <div class="esg-breakdown">
+                    <div class="esg-item"><span>Ambiental</span><div class="bar"><div class="fill" style="width:89%"></div></div><small>89</small></div>
+                    <div class="esg-item"><span>Social</span><div class="bar"><div class="fill" style="width:94%"></div></div><small>94</small></div>
+                    <div class="esg-item"><span>Governança</span><div class="bar"><div class="fill" style="width:91%"></div></div><small>91</small></div>
+                </div>
+                <div class="risk-box"><strong>Risk Index:</strong> Baixo</div>            
             </div>
-            <div class="conteudo-painel">
-                    <div class="painel-etapa ativa" id="etapa-1">Os dados utilizados pela plataforma são consolidados automaticamente a partir de documentos corporativos, indicadores públicos, registros regulatórios (como CVM) e métricas operacionais auditáveis. Todas as informações passam por processos de padronização estrutural para eliminar ruídos e permitir comparabilidade imediata entre indústrias.
-                    </p></div>
-
-                    <div class="painel-etapa" id="etapa-2"> Indicadores processados são classificados em três pilares estratégicos com pesos definidos pelo potencial de impacto financeiro no longo prazo:</p>
-                        <strong><p>Ambiental (Environmental)— Peso: 40% <br>
-                        Governança (Governance) — Peso: 35%<br>
-                        Social (Social) — Peso: 25%
-                         <p>Equação de Risco:  ESG Score = (0.40 * E) + (0.35 * G) + (0.25 * S)</p>
-                         </div>
-                         <div class="painel-etapa" id="etapa-3">A plataforma executa modelos matemáticos capazes de medir a exposição a riscos operacionais críticos, oscilações regulatórias repentinas e potenciais passivos financeiros antes que eles se concretizem. As simulações permitem ao usuário alterar variáveis de estresse e visualizar a mudança do risco em tempo real. 
-                         </p></div>
-
-                         <div class="painel-etapa" id="etapa-4">Eficiência absoluta como pilar de credibilidade. Cada score ou indicador apresentado no painel mantém um vínculo indexado e direto com a sua respectiva fonte documental de origem, garantindo auditoria de ponta a ponta, dupla verificação de dados e total validação independente.
-                         </p></div>
-                     </div>
+        </div>        
+    </div>    
 </section>
 
-    <section id="fale-conosco" class="section-conteudo">
-      <span class="subtitulo_institucional">Relações com investidores e Parceiros</span>
-        <h2>Contato Institucional</h2>
-    <div class="faixa-contato">
-        <div class="card-contato" id="endereco">
-            <div class="icon-wrapper">
-            <i class="fa-solid fa-map-location-dot"></i></div>
-                <h3>Localização</h3>
-                <p>Rua Guanabara, SP, Brasil</p></div>
-            <div class="card-contato" id="contato">
-                 <div class="icon-wrapper">
-            <i class="fa-solid fa-phone"></i></div>
-                <h3>Contato</h3>
-                <p>+55 (31)9 99786432</p></div>
-            <div class="card-contato" id="suporte">
-                <div class="icon-wrapper">
-            <i class="fa-solid fa-envelope"></i></div>
-                <h3>Suporte</h3>
-                <p>pi@simbyoaudit.com</p></div>
-                
+<section class="section" id="solucao">        
+    <div class="container">        
+        <div class="center">            
+            <h2>Os riscos mais relevantes continuam invisíveis.</h2>            
+            <p>A assimetria de informações afeta diretamente a segurança e a blindagem dos portfólios institucionais.</p>        
         </div>
-    <form>
-        <div class="proposito-form">
-        <h3>Dúvidas?
-        Fale com nossos especialistas!</h3>
-        <p>Preencha o formulário abaixo e nossa equipe retornará o contato assim que possível.</p>
+        <div class="cards">        
+            <div class="card fade-up"><h3>📄 Relatórios Extensos</h3><p>60+ páginas de relatórios burocráticos e densos por organização.</p></div>        
+            <div class="card fade-up"><h3>🌎 Dados Fragmentados</h3><p>100% de dados socioambientais fragmentados e de difícil validação.</p></div>        
+            <div class="card fade-up"><h3>⏳ Tempo Desperdiçado</h3><p>Dias ou até semanas de análise técnica desperdiçadas por equipes de investimento para tentar rastrear um único risco operacional.</p></div>        
+        </div>        
+    </div>    
+</section>
+
+<section class="section section-alt" id="quem-somos">        
+    <div class="container">        
+        <div class="center">            
+            <h2>Quem Somos</h2>            
+            <p class="introducao">A SymbioAudit nasceu para mudar essa dinâmica.</p>        
         </div>
-        <label for="campo-nome">Nome Completo (Razão Social)</label>
-        <input type="text" id="campo-nome" placeholder="Ex: Marlon Duarte">
+        <div class="quem-somos-texto">
+            <p>
+                Somos uma plataforma de inteligência ESG e auditoria analítica desenvolvida para transformar essa complexidade documental em decisões estratégicas seguras. 
+                Substituímos a assimetria de informações por uma interface centralizada, auditável e estritamente orientada à <strong>proteção de capital.</strong>
+            </p>
+            <p>
+                Nosso foco é antecipar volatilidades ambientais, jurídicas e de governança antes que elas se convertam em passivos financeiros. Oferecemos previsibilidade de longo prazo e blindagem de portfólio para investidores institucionais.
+            </p>
+            <blockquote class="frase-destaque">
+                "Mais do que consolidar relatórios, entregamos inteligência aplicada à tomada de decisão."
+            </blockquote>
+        </div>
 
-    <label for="campo-email">E-mail Corporativo</label>
-        <input type="email" id="campo-email" placeholder="Ex:nome@empresa.com">
+        <div class="center" style="margin-top: 80px;">
+            <h2>Nossos Pilares</h2>
+        </div>
+        <div class="cards">        
+            <div class="card fade-up"><h3>Centralização e Eficiência Analítica</h3><p>Eliminamos a burocracia dos relatórios extensos ao consolidar métricas ESG, indicadores operacionais e dados públicos em uma plataforma objetiva, auditável e orientada à tomada de decisão.</p></div>        
+            <div class="card fade-up"><h3>Mitigação de Risco Corporativo</h3><p>Identificamos inconsistências, riscos ambientais e fragilidades de governança antes que se tornem passivos financeiros. Mais segurança para tomar decisões no patrimônio a ser investido.</p></div>        
+            <div class="card fade-up"><h3>Inteligência Preditiva para Investimentos</h3><p>Aplicamos análise estratégica e simulações de impacto econômico para responder à principal pergunta do mercado: o capital investido está protegido por sustentabilidade, governança e responsabilidade operacional?</p></div>        
+        </div>        
+    </div>    
+</section>
 
-    <label for="campo-assunto">Mensagem</label>
-        <textarea id="campo-assunto" placeholder="Descreva detalhadamente o motivo do seu contato..."></textarea>
-    
-        <button id="enviar">Enviar Solicitação</button>
+<section class="section" id="seguranca">
+    <div class="container">
+        <div class="center">
+            <h2>🛡️ Segurança e Suporte</h2>
+            <p>A SymbioAudit adota processos rigorosos de conformidade e segurança para que você foque exclusivamente na tomada de decisão. <strong>Não fazemos previsões mágicas:</strong> consolidamos dados auditáveis com total transparência e suporte contínuo.</p>
+        </div>
+        <div class="cards">
+            <div class="card fade-up">
+                <h3>👥 Suporte Técnico Dedicado</h3>
+                <p>Central de atendimento especializada para sanar dúvidas operacionais e auxiliar na navegação dos painéis em tempo real. Respostas diretas, sem burocracia.</p>
+            </div>
+            <div class="card fade-up">
+                <h3>🔒 Segurança e Sigilo de Dados</h3>
+                <p>Criptografia e governança rígida da informação para garantir total confidencialidade sobre as empresas consultadas e a estratégia do seu portfólio.</p>
+            </div>
+            <div class="card fade-up">
+                <h3>Confiabilidade</h3>
+                <p>Rastreabilidade total. Cada indicador exibido na plataforma aponta diretamente para o documento oficial de origem, permitindo dupla checagem sempre que necessário.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-  </form>
-    </section>
-    <footer class="menu-rodape">
-    <nav class="rodape-links">
-        <a href="#home" class="link-item">
-            <span class="texto">Home</span>
-        </a>
-        <a href="#quem-somos" class="link-item">
-            <span class="texto">Quem Somos</span>
-        </a>
-        <a href="#seguranca" class="link-item">
-            <span class="texto">Segurança</span>
-        </a>
-        <a href="#metodologia" class="link-item">
-            <span class="texto">Metodologia</span>
-        </a>
-        <a href="#fale-conosco" class="link-item">
-            <span class="texto">Contato</span>
-        </a>
-    </nav>
-    <nav class="rodape">© 2026 SymbioAudit • Inteligência ESG para Proteção de Capital
-    <p>By Graciele Braz • Liga Steam | João Monlevade</p></nav>
+<section class="section section-alt" id="metodologia">        
+    <div class="container">        
+        <div class="center">            
+            <h2>📊 Metodologia</h2>            
+            <p>A estrutura da SymbioAudit foi desenvolvida para transformar dados operacionais em indicadores comparáveis, auditáveis e orientados à tomada de decisão institucional. Cada etapa do processo segue critérios rígidos de rastreabilidade, ponderação estratégica e simulação dinâmica de impacto.</p>        
+        </div>
+        <div class="steps">        
+            <div class="step fade-up" onclick="openModal('coleta')"><span>01</span><h3>Coleta</h3><p>Documentos corporativos, indicadores públicos e registros regulatórios...</p></div>        
+            <div class="step fade-up" onclick="openModal('esg')"><span>02</span><h3>Ponderação ESG</h3><p>Pesos e fórmulas matemáticas aplicadas por potencial econômico...</p></div>        
+            <div class="step fade-up" onclick="openModal('simulacao')"><span>03</span><h3>Simulação</h3><p>Modelos matemáticos para medir riscos e oscilações regulatórias...</p></div>        
+            <div class="step fade-up" onclick="openModal('rastreabilidade')"><span>04</span><h3>Rastreabilidade</h3><p>Vínculo indexado direto com a respectiva fonte documental...</p></div>        
+        </div>        
+    </div>    
+</section>            
+
+<section class="section" id="plataforma">            
+    <div class="container">
+        <div class="center">                    
+            <h2>Conheça a Plataforma</h2>                    
+            <p>Uma interface clara, auditável e orientada à tomada de decisão estratégica.</p>                
+        </div>
+        <div class="mockup">
+            <div class="mockup-header">                        
+                <div class="dots"><span></span><span></span><span></span></div>                        
+                <strong>SymbioAudit Dashboard</strong>                    
+            </div>
+            <div class="mockup-body">
+                <div class="mock-left">                            
+                    <h3>ESG Overview</h3>
+                    <div class="big-score"><strong>92</strong><span>Score Geral</span></div>
+                    <div class="mini-bars">                                
+                        <div>Ambiental <div class="bar"><div class="fill" style="width:89%"></div></div></div>                                
+                        <div>Social <div class="bar"><div class="fill" style="width:94%"></div></div></div>                                
+                        <div>Governança <div class="bar"><div class="fill" style="width:91%"></div></div></div>                            
+                    </div>
+                </div>
+                <div class="mock-right">
+                    <div class="card-mini"><h4>Compliance</h4><strong>98%</strong></div>
+                    <div class="card-mini"><h4>Risk Index</h4><strong>Baixo</strong></div>
+                    <div class="card-mini highlight"><h4>Alertas</h4><strong>2 ativos</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>        
+</section>
+
+<section class="section section-alt" id="fale-conosco">
+    <section class="cta fade-up">    
+    <div class="container">
+        <h2>Decisões estratégicas não podem depender de dados fragmentados.</h2>
+        <p>A SymbioAudit transforma informações ESG em inteligência auditável para proteção de capital e mitigação de risco institucional.</p>
+        <div class="cta-box">
+            <div class="cta-highlight">                
+                ✔ Diagnóstico ESG da sua operação<br>                
+                ✔ Identificação de riscos ocultos<br>                
+                ✔ Simulação de exposição de capital<br>                
+                ✔ Visão auditável para decisão executiva            
+            </div>
+            <a href="javascript:void(0)" class="btn" onclick="abrirFormulario()">Solicitar Demonstração</a>
+            <small>Resposta em até 24h • Demonstração personalizada</small>
+        </div>
+    </div>
+</section>    
+
+<footer>            
+    © 2026 SymbioAudit • Inteligência ESG para Proteção de Capital
+    <p>By Graciele Braz • Liga Steam | João Monlevade</p>
 </footer>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3 id="modalTitle">Título da Etapa</h3>
+        </div>
+        <div class="modal-body">
+            <div id="modalContent">Conteúdo</div>
+            <button class="modal-close" onclick="closeModal()">Fechar</button>
+        </div>
+    </div>
+</div>
+ 
+<div class="modal-overlay" id="modalFormulario" onclick="closeModalForm()">
+    <div class="modal" onclick="event.stopPropagation()">
+        
+        <span class="modal-fechar-X" onclick="closeModalForm()">&times;</span>
+        
+        <div class="modal-header">
+
+            <p>Preencha os dados abaixo e nossa equipe retornará em até 24h.</p>
+        </div>
+        
+        <div class="modal-body">
+            <form id="formContato">
+                <div class="proposito-form">
+                    <h3>Dúvidas? Fale com nossos especialistas!</h3>
+                    <p>Preencha o formulário abaixo para iniciarmos o contato.</p>
+                </div>
+                
+                <label for="campo-nome">Nome Completo (Razão Social)</label>
+                <input type="text" id="campo-nome" placeholder="Ex: Marlon Duarte" required>
+
+                <label for="campo-email">E-mail Corporativo</label>
+                <input type="email" id="campo-email" placeholder="Ex: nome@empresa.com" required>
+
+                <label for="campo-assunto">Mensagem</label>
+                <textarea id="campo-assunto" placeholder="Descreva detalhadamente o motivo do seu contato..." required></textarea>
+                
+                <button id="enviar" type="submit">Enviar Solicitação</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script src="js/script.js"></script>
 </body>
 </html>
