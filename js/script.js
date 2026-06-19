@@ -1,16 +1,24 @@
+/**
+ * ==========================================================================
+ * CONTROLE DE INTERFACE, ANIMAÇÕES E CABEÇALHO
+ * ==========================================================================
+ */
+
 // Controle do menu responsivo móvel
 function toggleMenu() {
     const menu = document.getElementById("menuLinks");
-    menu.classList.toggle("active");
+    if (menu) menu.classList.toggle("active");
 }
 
 // Efeito de scroll no cabeçalho
 window.addEventListener('scroll', () => {
     const header = document.getElementById('cabecalho');
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
+    if (header) {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
     }
 });
 
@@ -25,15 +33,12 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".fade-up").forEach(el => observer.observe(el));
 
-// Interceptação e simulação de envio do formulário de contato
-const form = document.getElementById("formContato");
-if (form) {
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        alert("Solicitação enviada com sucesso! Nossa equipe retornará o contato em até 24h.");
-        form.reset();
-    });
-}
+
+/**
+ * ==========================================================================
+ * BANCO DE DADOS DINÂMICO E CONTROLE DOS MODAIS
+ * ==========================================================================
+ */
 
 // Banco de dados dinâmico do Modal (Metodologia)
 const modalData = {
@@ -43,7 +48,7 @@ const modalData = {
     },
     esg: {
         title: "02. Ponderação ESG",
-        content: "<p>Indicadores processados são classificados em três pilares estratégicos com pesos definidos pelo potencial de impacto financeiro no longo prazo:</p><br><ul><li><strong>Ambiental (Environmental)</strong> — Peso: 40%</li><li><strong>Governança (Governance)</strong> — Peso: 35%</li><li><strong>Social (Social)</strong> — Peso: 25%</li></ul><br><p style='background:#f4f7fa; padding:15px; border-radius:8px; font-family:monospace; font-weight:bold; text-align:center;'>Equação de Risco:<br>ESG Score = (0.40 * E) + (0.35 * G) + (0.25 * S)</p>"
+        content: "<p>Indicadores processados são classificados em três pilares estratégicos com pesos definidos pelo potencal de impacto financeiro no longo prazo:</p><br><ul><li><strong>Ambiental (Environmental)</strong> — Peso: 40%</li><li><strong>Governança (Governance)</strong> — Peso: 35%</li><li><strong>Social (Social)</strong> — Peso: 25%</li></ul><br><p style='background:#f4f7fa; padding:15px; border-radius:8px; font-family:monospace; font-weight:bold; text-align:center;'>Equação de Risco:<br>ESG Score = (0.40 * E) + (0.35 * G) + (0.25 * S)</p>"
     },
     simulacao: {
         title: "03. Simulação de Impacto",
@@ -55,7 +60,7 @@ const modalData = {
     }
 };
 
-// Funções para controle de abertura e fechamento do Modal
+// Funções para controle de abertura e fechamento do Modal de Metodologia
 function openModal(key) {
     const data = modalData[key];
     if (data) {
@@ -69,15 +74,201 @@ function closeModal() {
     document.getElementById("modalOverlay").classList.remove("active");
 }
 
+// Funções para controle do Modal do Formulário
 function abrirFormulario() {
-    // Procura o elemento pelo ID e adiciona a classe que o torna visível
     document.getElementById("modalFormulario").classList.add("active");
 }
 
-// Função para fechar o modal do formulário
 function closeModalForm() {
     const modal = document.getElementById("modalFormulario");
     if (modal) {
         modal.classList.remove("active");
+    }
+}
+
+
+/**
+ * ==========================================================================
+ * VALIDAÇÃO EM TEMPO REAL E MÁSCARAS (Formulário de Contato)
+ * ==========================================================================
+ */
+
+// 1. Máscara dinâmica para o Telefone/WhatsApp
+function aplicarMascaraTelefone(input) {
+    let valor = input.value.replace(/\D/g, ""); 
+    
+    if (valor.length <= 10) {
+        valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2");
+        valor = valor.replace(/(\d{4})(\d)/, "$1-$2");
+    } else {
+        valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2");
+        valor = valor.replace(/(\d{5})(\d)/, "$1-$2");
+    }
+    input.value = valor;
+}
+
+// 2. Função auxiliar de validação em tempo real por campo
+function validarCampoIndividual(idCampo, idErro, tipoValidacao) {
+    const campo = document.getElementById(idCampo);
+    const erroElemento = document.getElementById(idErro);
+    
+    if (!campo || !erroElemento) return false;
+
+    let valido = true;
+    const valor = campo.value.trim();
+
+    if (tipoValidacao === 'nome') {
+        // Mínimo de 8 caracteres (Apenas letras e espaços)
+        const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{8,}$/;
+        valido = regexNome.test(valor);
+    } 
+    else if (tipoValidacao === 'email') {
+        // Formato padrão de e-mail corporativo
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        valido = regexEmail.test(valor);
+    } 
+    else if (tipoValidacao === 'telefone') {
+        // Remove caracteres especiais para validar a string puramente numérica
+        const telLimpo = campo.value.replace(/\D/g, "");
+        
+        // Bloqueia sequências de dígitos idênticos (ex: 00000000000)
+        const sequenciaRepetida = /^(\d)\1+$/;
+
+        valido = (telLimpo.length === 10 || telLimpo.length === 11) && !sequenciaRepetida.test(telLimpo);
+    }
+
+    // Altera a visibilidade do erro com base na resposta lógica
+    if (!valido) {
+        erroElemento.style.display = 'block';
+    } else {
+        erroElemento.style.display = 'none';
+    }
+
+    return valido;
+}
+
+// 3. Ativação dos ouvintes (listeners) e interceptação de envio
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("formContato");
+    
+    const campoNome = document.getElementById('campo-nome');
+    const campoEmail = document.getElementById('campo-email');
+    const campoTel = document.getElementById('form-tel');
+
+    if (form) {
+        // Eventos em tempo real para o Nome
+        if (campoNome) {
+            campoNome.addEventListener('input', () => validarCampoIndividual('campo-nome', 'erro-nome', 'nome'));
+            campoNome.addEventListener('blur', () => validarCampoIndividual('campo-nome', 'erro-nome', 'nome'));
+        }
+
+        // Eventos em tempo real para o E-mail
+        if (campoEmail) {
+            campoEmail.addEventListener('input', () => validarCampoIndividual('campo-email', 'erro-email', 'email'));
+            campoEmail.addEventListener('blur', () => validarCampoIndividual('campo-email', 'erro-email', 'email'));
+        }
+
+        // Eventos em tempo real para o Telefone
+        if (campoTel) {
+            campoTel.addEventListener('input', () => {
+                aplicarMascaraTelefone(campoTel);
+                validarCampoIndividual('form-tel', 'erro-tel', 'telefone');
+            });
+            campoTel.addEventListener('blur', () => validarCampoIndividual('form-tel', 'erro-tel', 'telefone'));
+        }
+
+        // --- INTERCEPTAÇÃO E TRAVA DO SUBMIT ---
+        form.addEventListener("submit", (event) => {
+            // Executa e armazena os testes lógicos de todos os inputs simultaneamente
+            const nomeValido = validarCampoIndividual('campo-nome', 'erro-nome', 'nome');
+            const emailValido = validarCampoIndividual('campo-email', 'erro-email', 'email');
+            const telValido = validarCampoIndividual('form-tel', 'erro-tel', 'telefone');
+
+            // Se houver qualquer pendência, puxa o freio de mão
+            if (!nomeValido || !emailValido || !telValido) {
+                event.preventDefault(); 
+                return false;
+            }
+
+            // Fluxo executado somente quando todos os campos passarem no teste
+            event.preventDefault(); 
+            alert("Solicitação enviada com sucesso!Retornaremos em até 24 hrs.");
+            
+            form.reset(); // Limpa as caixas de texto
+
+            // Faxina extra: Força o sumiço dos erros gerados pelo esvaziamento do form
+            const erros = [
+                document.getElementById('erro-nome'),
+                document.getElementById('erro-email'),
+                document.getElementById('erro-tel')
+            ];
+            erros.forEach(erro => {
+                if (erro) erro.style.display = 'none';
+            });
+            
+            if (typeof closeModalForm === "function") {
+                closeModalForm(); 
+            }
+        });
+    }
+});
+
+
+/**
+ * ==========================================================================
+ * BANCO DE DADOS E EVENTOS DA CAIXINHA DETALHADA ESG (ArcelorMittal)
+ * ==========================================================================
+ */
+const dadosCaixinhaESG = {
+    ambiental: {
+        titulo: "01 • Pilar Ambiental (E) — Impacto e Alta Tecnologia",
+        descricao: "A SymbioAudit monitora e audita os indicadores ecológicos mais críticos e disruptivos das plantas industriais da ArcelorMittal.<br><br>" +
+                   "<strong>Casos de Alto Impacto Monitorados:</strong><br>" +
+                   "• <strong>Florestas Renováveis e Biocarvão:</strong> Auditoria de rastreabilidade do uso de carvão vegetal (biocarvão) produzido pela <i>ArcelorMittal BioFlorestas</i> a partir de florestas 100% cultivadas. Essa inovação substitui o carvão mineral nos altos-fornos, sendo o pilar central para a produção do 'Aço Verde' de baixo carbono.<br>" +
+                   "• <strong>Megaprojeto de Dessalinização e Gestão Hídrica:</strong> Monitoramento da maior planta de dessalinização de água do mar do Brasil instalada na unidade de Tubarão (investimento de R$ 50 milhões). O sistema checa as metas de redução de captação de água doce de rios superficiais, protegendo os recursos hídricos locais.<br>" +
+                   "• <strong>Economia Circular (Meta >90%):</strong> Rastreamento do reaproveitamento de coprodutos industriais. O algoritmo monitora a transformação da escória de aciaria em subprodutos para a indústria de cimento e pavimentação de rodovias, evitando o descarte em aterros."
+    },
+    social: {
+        titulo: "02 • Pilar Social (S) — Projetos e Impacto",
+        descricao: "Centralização e auditoria digital de projetos sociais, desenvolvimento humano e metas de diversidade corporativa.<br><br>" +
+                   "<strong>Casos Reais Monitorados:</strong><br>" +
+                   "• <strong>Aplicações Fundacionais (R$ 45,4 Milhões):</strong> Auditoria e rastreio de recursos destinados a projetos executados via Fundação ArcelorMittal, como a <i>Liga STEAM</i> (foco em educação técnica), o circuito cultural <i>Diversão em Cena</i> e o projeto de capacitação <i>Forma e Transforma</i>.<br>" +
+                   "• <strong>Evolução de Liderança Feminina:</strong> Rastreamento em tempo real do programa de DE&I (Diversidade, Equidade e Inclusão), que validou a marca de 23% de mulheres em cargos de alta liderança em 2024, auditando o cumprimento da meta de atingir 25% até 2030.<br>" +
+                   "• <strong>Cultura Zero Acidentes:</strong> Auditoria preventiva de treinamentos e segurança integrada, tratando a proteção humana como valor inegociável."
+    },
+    governanca: {
+        titulo: "03 • Governança, Risco e Integridade (G) — Prêmios e Padrões",
+        descricao: "O coração do compliance e controle de riscos operacionais da cadeia de suprimentos e processos industriais.<br><br>" +
+                   "<strong>Casos Reais Monitorados:</strong><br>" +
+                   "• <strong>Melhor Compliance do Ano:</strong> Monitoramento de integridade ancorado no Programa de Integridade da ArcelorMittal, que foi eleito oficialmente o <i>'Melhor do Ano em Compliance'</i> no Leaders League Compliance Summit & Awards Brasil.<br>" +
+                   "• <strong>Padrão Internacional Steel:</strong> Auditoria interna dos critérios rígidos de governança que permitiram a mais 6 unidades operacionais brasileiras conquistarem em 2024 o selo máximo global <i>ResponsibleSteel Core Site</i>.<br>" +
+                   "• <strong>Homologação de 12,3 Mil Forcedores:</strong> Controle de riscos da malha de parceiros (sendo 10,3 mil de suprimentos), garantindo que 100% passem por checagens éticas e de direitos humanos."
+    }
+};
+
+function abrirCaixinhaESG(pilar) {
+    var info = dadosCaixinhaESG[pilar];
+    var modal = document.getElementById('caixinha-esg');
+    
+    if (info && modal) {
+        document.getElementById('caixinha-esg-titulo').innerHTML = info.titulo;
+        document.getElementById('caixinha-esg-descricao').innerHTML = info.descricao;
+        
+        modal.style.setProperty('display', 'flex', 'important');
+        modal.classList.add('mostrar-caixinha');
+    }
+}
+
+function fecharCaixinhaESG() {
+    var modal = document.getElementById('caixinha-esg');
+    if (modal) {
+        modal.classList.remove('mostrar-caixinha');
+        modal.style.setProperty('display', 'none', 'important');
+    }
+}
+
+function fecharCaixinhaFora(event) {
+    if (event.target.id === 'caixinha-esg') {
+        fecharCaixinhaESG();
     }
 }
