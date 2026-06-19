@@ -60,32 +60,12 @@ const modalData = {
     }
 };
 
-// Funções para controle de abertura e fechamento do Modal de Metodologia
-function openModal(key) {
-    const data = modalData[key];
-    if (data) {
-        document.getElementById("modalTitle").innerText = data.title;
-        document.getElementById("modalContent").innerHTML = data.content;
-        document.getElementById("modalOverlay").classList.add("active");
-    }
-}
 
-function closeModal() {
-    document.getElementById("modalOverlay").classList.remove("active");
-}
-
-// Funções para controle do Modal do Formulário
-function abrirFormulario() {
-    document.getElementById("modalFormulario").classList.add("active");
-}
-
-function closeModalForm() {
-    const modal = document.getElementById("modalFormulario");
-    if (modal) {
-        modal.classList.remove("active");
-    }
-}
-
+/**
+ * ==========================================================================
+ * VALIDAÇÃO EM TEMPO REAL E MÁSCARAS (Formulário de Contato)
+ * ==========================================================================
+ */
 
 /**
  * ==========================================================================
@@ -107,7 +87,7 @@ function aplicarMascaraTelefone(input) {
     input.value = valor;
 }
 
-// 2. Função auxiliar de validação em tempo real por campo
+// 2. Função auxiliar de validação por campo
 function validarCampoIndividual(idCampo, idErro, tipoValidacao) {
     const campo = document.getElementById(idCampo);
     const erroElemento = document.getElementById(idErro);
@@ -118,102 +98,139 @@ function validarCampoIndividual(idCampo, idErro, tipoValidacao) {
     const valor = campo.value.trim();
 
     if (tipoValidacao === 'nome') {
-        // Mínimo de 8 caracteres (Apenas letras e espaços)
         const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{8,}$/;
         valido = regexNome.test(valor);
     } 
     else if (tipoValidacao === 'email') {
-        // Formato padrão de e-mail corporativo
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         valido = regexEmail.test(valor);
     } 
     else if (tipoValidacao === 'telefone') {
-        // Remove caracteres especiais para validar a string puramente numérica
         const telLimpo = campo.value.replace(/\D/g, "");
-        
-        // Bloqueia sequências de dígitos idênticos (ex: 00000000000)
         const sequenciaRepetida = /^(\d)\1+$/;
-
         valido = (telLimpo.length === 10 || telLimpo.length === 11) && !sequenciaRepetida.test(telLimpo);
     }
 
-    // Altera a visibilidade do erro com base na resposta lógica
     if (!valido) {
         erroElemento.style.display = 'block';
+        campo.style.borderColor = '#ef4444'; 
     } else {
         erroElemento.style.display = 'none';
+        campo.style.borderColor = '#cbd5e1'; 
     }
 
     return valido;
 }
 
-// 3. Ativação dos ouvintes (listeners) e interceptação de envio
-document.addEventListener("DOMContentLoaded", () => {
+// 3. FUNÇÃO DE FAXINA (Zera erros e bordas vermelhas)
+function limparErrosEFormulario() {
     const form = document.getElementById("formContato");
+    if (form) form.reset(); 
+
+    const campos = ['campo-nome', 'campo-email', 'form-tel', 'campo-assunto'];
+    campos.forEach(id => {
+        const elemento = document.getElementById(id);
+        if (elemento) elemento.style.borderColor = '#cbd5e1'; 
+    });
+
+    const erros = ['erro-nome', 'erro-email', 'erro-tel'];
+    erros.forEach(id => {
+        const elemento = document.getElementById(id);
+        if (elemento) elemento.style.display = 'none'; 
+    });
+}
+
+// 4. A FUNÇÃO QUE SEU HTML PROCURA NO SUBMIT (Mata o erro de passar direto!)
+function validarFormulario(event) {
+    // Impede o envio imediato para fazer os testes lógicos
+    event.preventDefault(); 
+
+    const nomeValido = validarCampoIndividual('campo-nome', 'erro-nome', 'nome');
+    const emailValido = validarCampoIndividual('campo-email', 'erro-email', 'email');
+    const telValido = validarCampoIndividual('form-tel', 'erro-tel', 'telefone');
+
+    // Se algo estiver errado, barra o envio e retorna false
+    if (!nomeValido || !emailValido || !telValido) {
+        return false;
+    }
+
+    // Se passar em tudo, exibe o sucesso!
+    alert("Solicitação enviada com sucesso! Retornaremos em até 24 hrs.");
     
+    limparErrosEFormulario(); // Limpa tudo para a próxima vez
+    
+    if (typeof closeModalForm === "function") {
+        closeModalForm(); 
+    }
+
+    return true;
+}
+
+// 5. Ativação dos ouvintes em tempo real (input e blur)
+document.addEventListener("DOMContentLoaded", () => {
     const campoNome = document.getElementById('campo-nome');
     const campoEmail = document.getElementById('campo-email');
     const campoTel = document.getElementById('form-tel');
 
-    if (form) {
-        // Eventos em tempo real para o Nome
-        if (campoNome) {
-            campoNome.addEventListener('input', () => validarCampoIndividual('campo-nome', 'erro-nome', 'nome'));
-            campoNome.addEventListener('blur', () => validarCampoIndividual('campo-nome', 'erro-nome', 'nome'));
-        }
-
-        // Eventos em tempo real para o E-mail
-        if (campoEmail) {
-            campoEmail.addEventListener('input', () => validarCampoIndividual('campo-email', 'erro-email', 'email'));
-            campoEmail.addEventListener('blur', () => validarCampoIndividual('campo-email', 'erro-email', 'email'));
-        }
-
-        // Eventos em tempo real para o Telefone
-        if (campoTel) {
-            campoTel.addEventListener('input', () => {
-                aplicarMascaraTelefone(campoTel);
-                validarCampoIndividual('form-tel', 'erro-tel', 'telefone');
-            });
-            campoTel.addEventListener('blur', () => validarCampoIndividual('form-tel', 'erro-tel', 'telefone'));
-        }
-
-        // --- INTERCEPTAÇÃO E TRAVA DO SUBMIT ---
-        form.addEventListener("submit", (event) => {
-            // Executa e armazena os testes lógicos de todos os inputs simultaneamente
-            const nomeValido = validarCampoIndividual('campo-nome', 'erro-nome', 'nome');
-            const emailValido = validarCampoIndividual('campo-email', 'erro-email', 'email');
-            const telValido = validarCampoIndividual('form-tel', 'erro-tel', 'telefone');
-
-            // Se houver qualquer pendência, puxa o freio de mão
-            if (!nomeValido || !emailValido || !telValido) {
-                event.preventDefault(); 
-                return false;
-            }
-
-            // Fluxo executado somente quando todos os campos passarem no teste
-            event.preventDefault(); 
-            alert("Solicitação enviada com sucesso!Retornaremos em até 24 hrs.");
-            
-            form.reset(); // Limpa as caixas de texto
-
-            // Faxina extra: Força o sumiço dos erros gerados pelo esvaziamento do form
-            const erros = [
-                document.getElementById('erro-nome'),
-                document.getElementById('erro-email'),
-                document.getElementById('erro-tel')
-            ];
-            erros.forEach(erro => {
-                if (erro) erro.style.display = 'none';
-            });
-            
-            if (typeof closeModalForm === "function") {
-                closeModalForm(); 
-            }
+    // --- EVENTOS PARA O NOME ---
+    if (campoNome) {
+        campoNome.addEventListener('input', () => {
+            document.getElementById('erro-nome').style.display = 'none';
+            campoNome.style.borderColor = '#cbd5e1';
         });
+        campoNome.addEventListener('blur', () => validarCampoIndividual('campo-nome', 'erro-nome', 'nome'));
+    }
+
+    // --- EVENTOS PARA O E-MAIL ---
+    if (campoEmail) {
+        campoEmail.addEventListener('input', () => {
+            document.getElementById('erro-email').style.display = 'none';
+            campoEmail.style.borderColor = '#cbd5e1';
+        });
+        campoEmail.addEventListener('blur', () => validarCampoIndividual('campo-email', 'erro-email', 'email'));
+    }
+
+    // --- EVENTOS PARA O TELEFONE ---
+    if (campoTel) {
+        campoTel.addEventListener('input', () => {
+            aplicarMascaraTelefone(campoTel);
+            document.getElementById('erro-tel').style.display = 'none';
+            campoTel.style.borderColor = '#cbd5e1';
+        });
+        campoTel.addEventListener('blur', () => validarCampoIndividual('form-tel', 'erro-tel', 'telefone'));
     }
 });
 
 
+// ==========================================================================
+// CONTROLADORES DOS MODAIS (Metodologia e Formulário)
+// ==========================================================================
+
+function openModal(key) {
+    const data = modalData[key];
+    if (data) {
+        document.getElementById("modalTitle").innerText = data.title;
+        document.getElementById("modalContent").innerHTML = data.content;
+        document.getElementById("modalOverlay").classList.add("active");
+    }
+}
+
+function closeModal() {
+    document.getElementById("modalOverlay").classList.remove("active");
+}
+
+function abrirFormulario() {
+    limparErrosEFormulario(); // Limpa erros antigos ao abrir
+    document.getElementById("modalFormulario").classList.add("active");
+}
+
+function closeModalForm() {
+    const modal = document.getElementById("modalFormulario");
+    if (modal) {
+        limparErrosEFormulario(); // Limpa erros antigos ao fechar para não acumular
+        modal.classList.remove("active");
+    }
+}
 /**
  * ==========================================================================
  * BANCO DE DADOS E EVENTOS DA CAIXINHA DETALHADA ESG (ArcelorMittal)

@@ -598,7 +598,7 @@ nav {
 .card-value.alert-green { color: #107c41; }
 
 /* ==========================================================================
-   7. MODAIS UNIFICADOS E CAIXINHAS ESG (Animação de Baixo para Cima)
+   7. MODAIS UNIFICADOS E CAIXINHAS ESG (AJUSTE DE ALTURA E CENTRALIZAÇÃO)
    ========================================================================== */
 .modal-overlay,
 .caixinha-overlay-esg {
@@ -607,106 +607,56 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(7, 38, 59, 0.45);
+    background: rgba(7, 38, 59, 0.55);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    display: none;
+    display: none; /* Controlado pelo JS */
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    padding: 20px;
+    padding: 20px; /* Margem de segurança para o modal não colar nas bordas do celular */
 }
-
+/* Exibição ativa dos modais */
 .modal-overlay.active,
 .caixinha-overlay-esg.mostrar-caixinha {
-    display: flex;
+    display: flex !important;
 }
 
-.caixinha-esg-container {
-    width: 100%;
-    max-width: 680px;
-    background: #ffffff;
-    border-radius: 28px;
-    overflow: hidden;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
-    animation: surgimentoModal 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.caixinha-esg-header {
-    background: #002137;
-    padding: 24px 35px;
-}
-
-.caixinha-esg-header h3 {
-    margin: 0;
-    color: #ffffff;
-    font-size: 1.3rem;
-    font-weight: 700;
-}
-
-.caixinha-esg-body {
-    padding: 35px;
-    background: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.caixinha-esg-body p {
-    font-size: 1.05rem;
-    color: #475569;
-    line-height: 1.7;
-    margin: 0 0 30px 0;
-    text-align: left;
-}
-
+/* O container do Modal */
 .modal-overlay .modal {
     width: 100%;
     max-width: 550px;
-    background: white;
+    max-height: 85vh; /* MATOU O PROBLEMA: limita o modal a 85% da altura da tela */
+    background: #ffffff;
     border-radius: 24px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
     position: relative;
-    overflow: hidden;
+
+/* Engenharia Flex: separa topo fixo do corpo rolável */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
     animation: surgimentoModal 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
+/* Cabeçalho fixo preto/azul escuro */
 .modal-overlay .modal-header {
     background: var(--azul);
     color: white;
-    padding: 30px 40px 25px 40px;
+    padding: 25px 35px;
     text-align: left;
+    flex-shrink: 0; /* Não deixa o cabeçalho ser esmagado */
 }
-
-.modal-overlay .modal-header h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 6px;
-    color: white;
-}
-
 .modal-overlay .modal-header p {
     font-size: 0.9rem;
-    opacity: 0.85;
+    opacity: 0.9;
     color: #ffffff;
-}
-
-.modal-overlay .modal-body {
-    padding: 40px;
-    background: white;
-}
-
-.modal-overlay .modal-body form {
-    max-width: 100%;
     margin: 0;
-    padding: 0;
-    box-shadow: none;
-    background: transparent;
+    line-height: 1.4;
 }
-
+/* O X de fechar no topo */
 .modal-fechar-X {
     position: absolute;
-    top: 25px;
+    top: 18px;
     right: 25px;
     font-size: 28px;
     font-weight: bold;
@@ -716,472 +666,119 @@ nav {
     transition: color 0.2s, transform 0.2s;
     line-height: 1;
 }
-
 .modal-fechar-X:hover {
-    color: white;
+    color: #ffffff;
     transform: scale(1.1);
 }
 
-.btn-fechar-caixinha {
-    background: #3abf87;
-    color: #ffffff;
-    border: none;
-    padding: 12px 32px;
-    font-size: 0.95rem;
+/* Corpo do Modal (Onde a mágica da rolagem acontece) */
+.modal-overlay .modal-body {
+    padding: 30px 35px;
+    background: #ffffff;
+    overflow-y: auto; /* Se o form for maior que a tela, a barra de rolagem surge aqui dentro */
+    flex-grow: 1;
+}
+/* Textos internos de introdução do formulário */
+.proposito-form {
+    margin-bottom: 25px;
+    text-align: left;
+}
+.proposito-form h3 {
+    color: var(--azul);
+    margin-bottom: 8px;
+    font-size: 1.25rem;
     font-weight: 700;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.2s;
+    line-height: 1.3;
 }
 
-.modal-close{
-    margin-top:25px;
-    display:inline-block;
-
-    background:var(--verde);
-    color:white;
-
-    border:none;
-    padding:12px 22px;
-
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:700;
+.proposito-form p {
+    color: var(--texto);
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
 /* ==========================================================================
-   8. FORMULÁRIO DE CONTATO (ESTRUTURAL & CAMPOS)
+   8. FORMULÁRIO DE CONTATO (ESTILIZAÇÃO DOS CAMPOS)
    ========================================================================== */
-.form-Contato {
-
-    margin-bottom: 25px;
-
-    text-align: center;
-
-}
-
-
-
-.proposito-form h3 {
-
-    color: var(--azul);
-
-    margin-bottom: 10px;
-
-}
-
-
-
-.proposito-form p {
-
-    color: var(--texto);
-
-    font-size: 0.95rem;
-
-}
-
-
-
-label {
-
-    display: block;
-
-    margin-bottom: 8px;
-
-    font-weight: 600;
-
-    font-size: 0.9rem;
-
-    color: var(--azul);
-
-}
-
-
-
-input, textarea {
-
-    width: 100%;
-
-    padding: 14px;
-
-    border: 1px solid #d7dde5;
-
-    border-radius: 12px;
-
-    margin-bottom: 20px;
-
-    font-family: inherit;
-
-    font-size: 0.95rem;
-
-}
-
-
-
-input:focus, textarea:focus {
-
-    outline: none;
-
-    border-color: var(--verde);
-
-}
-
-
-
-textarea {
-
-    height: 120px;
-
-    resize: none;
-
-}
-
-
-
-form button {
-
-    width: 100%;
-
-    padding: 16px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    background: var(--azul);
-
-    color: white;
-
-    font-weight: 700;
-
-    font-size: 1rem;
-
-    cursor: pointer;
-
-    transition: 0.3s;
-
-}
-
-
-
-form button:hover {
-
-    background: var(--escuro);
-
-}
-
-/* Configurações Gerais Forms */
-
-
-
-/* Container Principal */
-
-.form-container-esg {
-
-    background: #ffffff;
-
-    padding: 35px;
-
-    border-radius: 20px;
-
-    box-shadow: 0 20px 50px rgba(7, 38, 59, 0.04);
-
-    border: 1px solid rgba(7, 38, 59, 0.04);
-
-    width: 100%;
-
-    max-width: 400px;
-
-    box-sizing: border-box;
-
-}
-
-.form-Contato {
-
-    margin-bottom: 25px;
-
-    text-align: center;
-
-}
-
-
-
-.proposito-form h3 {
-
-    color: var(--azul);
-
-    margin-bottom: 10px;
-
-}
-
-
-
-.proposito-form p {
-
-    color: var(--texto);
-
-    font-size: 0.95rem;
-
-}
-
-
-
-label {
-
-    display: block;
-
-    margin-bottom: 8px;
-
-    font-weight: 600;
-
-    font-size: 0.9rem;
-
-    color: var(--azul);
-
-}
-
-
-
-input, textarea {
-
-    width: 100%;
-
-    padding: 14px;
-
-    border: 1px solid #d7dde5;
-
-    border-radius: 12px;
-
-    margin-bottom: 20px;
-
-    font-family: inherit;
-
-    font-size: 0.95rem;
-
-}
-
-
-
-input:focus, textarea:focus {
-
-    outline: none;
-
-    border-color: var(--verde);
-
-}
-
-
-
-textarea {
-
-    height: 120px;
-
-    resize: none;
-
-}
-
-
-
-form button {
-
-    width: 100%;
-
-    padding: 16px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    background: var(--azul);
-
-    color: white;
-
-    font-weight: 700;
-
-    font-size: 1rem;
-
-    cursor: pointer;
-
-    transition: 0.3s;
-
-}
-
-
-
-form button:hover {
-
-    background: var(--escuro);
-
-}
-
-/* Configurações Gerais Forms */
-
-
-
-/* Container Principal */
-
-.form-container-esg {
-
-    background: #ffffff;
-
-    padding: 35px;
-
-    border-radius: 20px;
-
-    box-shadow: 0 20px 50px rgba(7, 38, 59, 0.04);
-
-    border: 1px solid rgba(7, 38, 59, 0.04);
-
-    width: 100%;
-
-    max-width: 400px;
-
-    box-sizing: border-box;
-
-}
-
-/* Configurações Gerais Forms */
-
-
-.form-container-esg {
-
-    background: #ffffff;
-
-    padding: 35px;
-
-    border-radius: 20px;
-
-    box-shadow: 0 20px 50px rgba(7, 38, 59, 0.04);
-
-    border: 1px solid rgba(7, 38, 59, 0.04);
-
-    width: 100%;
-
-    max-width: 400px;
-
-    box-sizing: border-box;
-
-}
-.proposito-form h3 {
-
-    color: var(--azul);
-
-    margin-bottom: 10px;
-
-}
-.form-Contato {
-
-    margin-bottom: 25px;
-
-    text-align: center;
-
-}
-
-.proposito-form p {
-
-    color: var(--texto);
-
-    font-size: 0.95rem;
-
-}
-
-/* Grupos de Campos */
-
 .form-group-esg {
-
     margin-bottom: 20px;
-
     display: flex;
-
     flex-direction: column;
-
+    text-align: left;
 }
-
-
-
 .form-group-esg label {
     font-size: 0.9rem;
-
     font-weight: 600;
-
     color: #07263b;
-
     margin-bottom: 8px;
-
 }
 
-
-
-.form-group-esg input {
-
+.form-group-esg input,
+.form-group-esg textarea {
     width: 100%;
-
-    padding: 12px 16px;
-
+    padding: 14px;
     font-size: 0.95rem;
-
     color: #334155;
-
     background-color: #ffffff;
-
     border: 1px solid #cbd5e1;
-
-    border-radius: 8px;
-
+    border-radius: 12px;
     box-sizing: border-box;
-
+    font-family: inherit;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
-
 }
 
-/* Efeito de Foco (Azul escuro combinando com o Header do dashboard) */
-
-.form-group-esg input:focus {
-
+/* Efeito de foco nos inputs */
+.form-group-esg input:focus,
+.form-group-esg textarea:focus {
     outline: none;
-
     border-color: #07263b;
-
     box-shadow: 0 0 0 3px rgba(7, 38, 59, 0.1);
-
 }
 
-/* ==========================================================================
-   8.1 BOTÃO DO FORMULÁRIO (ENVIO)
-   ========================================================================== */
+.form-group-esg textarea {
+    height: 110px;
+    resize: none; /* Trava o tamanho do textarea para não quebrar o layout */
+}
 
+/* Mensagens de erro escondidas por padrão */
+.msg-erro-esg {
+    color: #ef4444;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 6px;
+    display: none;
+}
+/* ==========================================================================
+   8.1 BOTÃO DE ENVIO (#enviar)
+   ========================================================================== */
 #enviar {
     width: 100%;
     padding: 16px;
     font-size: 1rem;
     font-weight: 700;
     color: #ffffff;
-    
-    /* Gradiente moderno do seu site */
-    background: linear-gradient(135deg, #07263b, #091e15); 
+    background: linear-gradient(135deg, #07263b, #36b37e); /* Gradiente unificado com a identidade visual */
     border: none;
     border-radius: 12px;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
     box-shadow: 0 8px 20px rgba(54, 179, 126, 0.2);
     margin-top: 10px;
-
-    /* Remove estilos nativos esquisitos de celulares */
     appearance: none;
     -webkit-appearance: none;
 }
 
-/* Efeito Hover */
 #enviar:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(16, 63, 43, 0.35);
+    box-shadow: 0 12px 25px rgba(54, 179, 126, 0.35);
     filter: brightness(1.05);
 }
 
-/* Efeito Active */
 #enviar:active {
     transform: translateY(0);
 }
+
+
 
 .msg-erro-esg {
     color: #ef4444;
