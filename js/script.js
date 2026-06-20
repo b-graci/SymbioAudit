@@ -67,12 +67,6 @@ const modalData = {
  * ==========================================================================
  */
 
-/**
- * ==========================================================================
- * VALIDAÇÃO EM TEMPO REAL E MÁSCARAS (Formulário de Contato)
- * ==========================================================================
- */
-
 // 1. Máscara dinâmica para o Telefone/WhatsApp
 function aplicarMascaraTelefone(input) {
     let valor = input.value.replace(/\D/g, ""); 

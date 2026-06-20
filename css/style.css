@@ -423,6 +423,40 @@ nav {
 }
 
 /* ==========================================================================
+   BOTÃO FECHAR EXCLUSIVO DO MODAL DE METODOLOGIA
+   ========================================================================== */
+
+/* Alvo: O botão com a classe modal-close que está dentro do modal ativo */
+#modalOverlay .modal-close {
+    background: #00b488 !important; /* Verde ESG original como fundo principal */
+    color: #ffffff !important; /* Texto branco para dar excelente contraste */
+    border: none !important;
+    padding: 12px 28px; /* Tamanho confortável para o clique */
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 8px; /* Cantos arredondados seguindo o padrão dos cards */
+    cursor: pointer;
+    text-transform: uppercase; /* Deixa o texto "FECHAR" imponente */
+    letter-spacing: 0.5px;
+    transition: background 0.2s ease, transform 0.1s ease;
+    margin-top: 25px;
+    display: inline-block;
+    float: right; /* Joga o botão para o canto inferior direito do container do modal */
+    box-shadow: 0 4px 12px rgba(0, 180, 136, 0.2); /* Sombra leve verde */
+}
+
+/* Efeito Hover: Quando passa o mouse, ele muda para o azul escuro corporativo */
+#modalOverlay .modal-close:hover {
+    box-shadow: 0 4px 12px rgba(7, 38, 59, 0.2); /* Sombra acompanha o tom azul */
+    transform: translateY(-1px); /* Feedback sutil de flutuação */
+}
+
+/* Efeito de Clique */
+#modalOverlay .modal-close:active {
+    transform: translateY(1px);
+}
+
+/* ==========================================================================
    6. INTERFACE INTERNA DO PAINEL / MOCKUPS ADAPTADA PARA 100vh
    ========================================================================== */
 .secao-plataforma-esg { 
@@ -940,6 +974,100 @@ footer p {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* ==========================================================================
+   (CAIXINHA ESG)
+   ========================================================================== */
+
+/* 1. O overlay (fundo escuro) controlado pelo  JS */
+#caixinha-esg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(7, 38, 59, 0.65) !important; /* Escurece o fundo */
+    backdrop-filter: blur(8px); /* Aplica o efeito blur profissional */
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 99999; /* Garante que fica por cima do dashboard */
+    padding: 20px;
+    box-sizing: border-box;
+    /* Nota: O 'display: flex' e 'none' o seu JS já injeta direto! */
+}
+
+/* 2. O bloco branco interno (O container que faltava para isolar o texto) */
+#caixinha-esg .caixinha-esg-container {
+    width: 100%;
+    max-width: 650px; /* Largura confortável para ler os dados */
+    max-height: 85vh; /* Evita que saia da tela */
+    background: #ffffff !important; /* Fundo branco sólido para não vazar */
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: surgirCaixinha 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 3. Estilização do Título (Injetado em #caixinha-esg-titulo) */
+.caixinha-esg-header {
+    background: #07263b; /* Azul escuro corporativo */
+    padding: 20px 25px;
+}
+
+#caixinha-esg-titulo {
+    margin: 0;
+    color: #ffffff !important;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* 4. Estilização do Corpo do Texto (Injetado em #caixinha-esg-descricao) */
+.caixinha-esg-body {
+    padding: 25px;
+    background: #ffffff !important;
+    overflow-y: auto; /* Cria scroll se o texto for muito grande */
+}
+
+#caixinha-esg-descricao {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #334155; /* Cinza escuro elegante para o texto */
+    margin: 0;
+}
+
+/* Força os elementos internos do HTML dinâmico a seguirem o padrão */
+#caixinha-esg-descricao strong {
+    color: #07263b;
+}
+
+/* 5. O Botão Fechar de dentro da caixinha */
+.btn-fechar-caixinha {
+    background: #07263b;
+    color: #ffffff !important;
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background 0.2s;
+    margin-top: 20px;
+    float: right; /* Joga o botão para o canto inferior direito */
+}
+
+.btn-fechar-caixinha:hover {
+    background: #00b488; /* Muda para verde no hover */
+}
+
+/* Animação suave */
+@keyframes surgirCaixinha {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
 
 /* ==========================================================================
    12. MEDIA QUERIES (RESPONSIVIDADE COMPLETA E COMPORTAMENTO MOBILE)
